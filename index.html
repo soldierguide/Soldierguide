@@ -1,93 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SoldierGuide Full System</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SoldierGuide</title>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0f172a;
-    color:white;
-    display:flex;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-/* Sidebar */
+body{
+  background:#0f172a;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* 🔥 AIR FORCE WATERMARK BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:600px;
+  height:600px;
+  background:url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Indian_Air_Force_Logo.svg/1024px-Indian_Air_Force_Logo.svg.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  opacity:0.04;
+  z-index:0;
+  pointer-events:none;
+  animation: floatLogo 8s ease-in-out infinite;
+}
+
+@keyframes floatLogo{
+  0%,100%{ transform:translate(-50%,-50%) scale(1); }
+  50%{ transform:translate(-50%,-52%) scale(1.05); }
+}
+
+/* SIDEBAR */
 .sidebar{
-    width:240px;
-    height:100vh;
-    background:#111827;
-    padding:20px;
-    position:fixed;
+  position:fixed;
+  left:0;
+  top:0;
+  width:260px;
+  height:100vh;
+  background:rgba(15,23,42,0.95);
+  backdrop-filter:blur(12px);
+  border-right:1px solid rgba(255,255,255,0.08);
+  padding:28px 20px;
+  z-index:10;
 }
 
 .logo{
-    font-size:22px;
-    color:#38bdf8;
-    font-weight:bold;
-    margin-bottom:20px;
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:40px;
+  background:linear-gradient(90deg,#38bdf8,#0ea5e9);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-button{
-    width:100%;
-    padding:12px;
-    margin:6px 0;
-    background:#1f2937;
-    border:none;
-    color:white;
-    text-align:left;
-    border-radius:8px;
-    cursor:pointer;
+.nav-menu a{
+  display:block;
+  padding:14px;
+  margin:8px 0;
+  border-radius:12px;
+  color:#cbd5e1;
+  text-decoration:none;
+  transition:0.3s;
 }
 
-button:hover{background:#38bdf8;color:black}
-
-/* Main */
-.main{
-    margin-left:250px;
-    padding:20px;
-    width:100%;
+.nav-menu a:hover{
+  background:linear-gradient(90deg,#0ea5e9,#0284c7);
+  color:#fff;
+  transform:translateX(5px);
 }
 
-.card{
-    background:#1e293b;
-    padding:15px;
-    margin:10px;
-    border-radius:10px;
+/* MAIN */
+.main-content{
+  margin-left:260px;
+  position:relative;
+  z-index:2;
 }
 
-.price{color:#22c55e}
-
-/* Login */
-.modal{
-    display:none;
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.7);
-    justify-content:center;
-    align-items:center;
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:40px;
+  background:radial-gradient(circle at top right,#1e3a8a33,transparent);
 }
 
-.box{
-    background:white;
-    color:black;
-    padding:20px;
-    width:300px;
-    border-radius:10px;
+.hero h1{
+  font-size:52px;
+  font-weight:800;
+  animation: fadeUp 1s ease;
 }
-input{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
+
+.hero p{
+  color:#cbd5e1;
+  margin-top:15px;
+  animation: fadeUp 1.2s ease;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 22px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* COURSES */
+.info-card{
+  background:rgba(255,255,255,0.06);
+  padding:25px;
+  border-radius:18px;
+  margin:20px;
+  animation: fadeUp 1s ease;
+}
+
+.price{
+  color:#38bdf8;
+  font-weight:700;
+}
+
+/* NOTIFICATION */
+.notice{
+  background:linear-gradient(90deg,#0ea5e9,#0284c7);
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(14,165,233,0.5);}
+  70%{box-shadow:0 0 0 10px rgba(14,165,233,0);}
+  100%{box-shadow:0 0 0 0 rgba(14,165,233,0);}
+}
+
+/* SECTION HIDE SHOW */
+.section{display:none;}
+.active{display:block;}
+
 </style>
 </head>
 
@@ -95,134 +172,86 @@ input{
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-<div class="logo">🎖 SoldierGuide</div>
+  <div class="logo">SoldierGuide</div>
 
-<button onclick="show('dashboard')">Dashboard</button>
-<button onclick="show('courses')">Courses</button>
-<button onclick="show('notifications')">Notifications</button>
-<button onclick="openLogin()">Login</button>
+  <div class="nav-menu">
+    <a onclick="show('home')">🏠 Home</a>
+    <a onclick="show('courses')">📚 Courses</a>
+    <a onclick="show('notify')">🔔 Notifications</a>
+    <a>🎁 Offers</a>
+    <a href="https://www.youtube.com/@thesoldiersguide" target="_blank">📺 YouTube</a>
+    <a>📞 Contact Us</a>
+    <a href="https://t.me/your_channel_username" target="_blank">📢 Telegram</a>
+  </div>
 </div>
 
 <!-- MAIN -->
-<div class="main">
+<div class="main-content">
 
-<!-- DASHBOARD -->
-<div id="dashboard">
-<h2>Welcome Soldier 💂</h2>
-<div class="card">Latest NDA / Airforce updates will appear here</div>
-</div>
+<!-- HOME -->
+<section id="home" class="section active">
+  <div class="hero">
+    <div>
+      <h1>Defence Aspirants<br>Preparation Hub</h1>
+      <p>Army • Airforce • Navy • GD • Clerk • Physical Training</p>
+
+      <a class="btn" style="background:#0ea5e9;color:#fff;" onclick="show('courses')">
+        Explore Courses
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- COURSES -->
-<div id="courses" style="display:none">
-<h2>Courses</h2>
+<section id="courses" class="section">
+  <div class="info-card">
 
-<div class="card">
-<h3>Silver</h3>
-<p>Basic Study Material</p>
-<div class="price">₹499</div>
-<button onclick="pay('Silver',499)">Buy</button>
-</div>
+    <h2>📚 Courses Section</h2>
 
-<div class="card">
-<h3>Gold</h3>
-<p>Mocks + Advanced Notes</p>
-<div class="price">₹599</div>
-<button onclick="pay('Gold',599)">Buy</button>
-</div>
+    <p style="margin-top:10px;font-size:18px;font-weight:600;">
+      🚫 No courses available right now
+    </p>
 
-<div class="card">
-<h3>Diamond</h3>
-<p>Live + Full Access</p>
-<div class="price">₹699</div>
-<button onclick="pay('Diamond',699)">Buy</button>
-</div>
+    <p style="margin-top:10px;color:#94a3b8;">
+      Subscribe on YouTube for free updates:
+    </p>
 
-</div>
+    <a href="https://www.youtube.com/@thesoldiersguide"
+       target="_blank"
+       style="color:#38bdf8;text-decoration:none;font-weight:700;">
+      www.youtube.com/@thesoldiersguide
+    </a>
+
+  </div>
+</section>
 
 <!-- NOTIFICATIONS -->
-<div id="notifications" style="display:none">
-<h2>Notifications</h2>
-<div class="card">📢 NDA form coming soon</div>
-<div class="card">📢 Airforce X Group update released</div>
-</div>
+<section id="notify" class="section">
+  <div class="info-card">
 
-</div>
+    <h2>🔔 Notifications</h2>
 
-<!-- LOGIN -->
-<div class="modal" id="loginModal">
-<div class="box">
-<h3>Login</h3>
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-</div>
+    <div class="notice">
+      🇮🇳 Indian Air Force Agniveer 2/2027 Vacancy Coming Soon
+    </div>
+
+    <p style="margin-top:15px;color:#94a3b8;">
+      Stay connected for updates, syllabus and exam dates.
+    </p>
+
+  </div>
+</section>
+
 </div>
 
 <script>
-
-/* ---------------- FIREBASE CONFIG ---------------- */
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-/* ---------------- NAV ---------------- */
 function show(id){
-    document.querySelectorAll('.main > div').forEach(e=>e.style.display="none");
-    document.getElementById(id).style.display="block";
+  document.querySelectorAll('.section')
+  .forEach(s => s.classList.remove('active'));
+
+  document.getElementById(id).classList.add('active');
 }
-
-/* ---------------- LOGIN ---------------- */
-function openLogin(){
-    document.getElementById("loginModal").style.display="flex";
-}
-
-function login(){
-    let email = document.getElementById("email").value;
-    let pass = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, pass)
-    .then(()=>{
-        alert("Login Success ✅");
-        document.getElementById("loginModal").style.display="none";
-    })
-    .catch(err=>alert(err.message));
-}
-
-/* ---------------- PAYMENT (RAZORPAY) ---------------- */
-function pay(plan, amount){
-
-    var options = {
-        key: "YOUR_RAZORPAY_KEY",
-        amount: amount * 100,
-        currency: "INR",
-        name: "SoldierGuide",
-        description: plan + " Plan",
-        handler: function(response){
-            alert("Payment Success ✅ " + response.razorpay_payment_id);
-
-            // Save to Firebase
-            db.collection("payments").add({
-                plan: plan,
-                amount: amount,
-                paymentId: response.razorpay_payment_id
-            });
-        }
-    };
-
-    var rzp = new Razorpay(options);
-    rzp.open();
-}
-
 </script>
-
-<!-- Razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </body>
 </html>
